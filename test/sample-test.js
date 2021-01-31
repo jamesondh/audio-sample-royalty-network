@@ -1,14 +1,16 @@
 const { expect } = require("chai");
 
-describe("Greeter", function() {
-  it("Should return the new greeting once it's changed", async function() {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
+describe("AudioRoyaltyNetwork", function() {
+  it("Should register projects correctly", async function() {
+    const AudioRoyaltyNetwork = await ethers.getContractFactory("AudioRoyaltyNetwork");
+    const audioRoyaltyNetwork = await AudioRoyaltyNetwork.deploy();
     
-    await greeter.deployed();
-    expect(await greeter.greet()).to.equal("Hello, world!");
+    await audioRoyaltyNetwork.deployed();
+   
+    const allAddresses = await ethers.getSigners();
 
-    await greeter.setGreeting("Hola, mundo!");
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    let registerProject = await audioRoyaltyNetwork.registerProject("MyFirstProject", [], [], "picture", "blurb", false);
+    expect(registerProject);
+
   });
 });
